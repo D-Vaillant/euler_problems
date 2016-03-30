@@ -32,11 +32,11 @@ def rows_find_max(arr):
     x_value = 0
     y_value = 0
     for row_index, row in enumerate(arr):
-        for index in range(len(row)-3):
-            candidate = reduce(mul, [row[index+n] for n in range(4)])
+        for column_index in range(17):
+            candidate = reduce(mul, (row[column_index+n] for n in range(4)))
             if candidate > current_max:
                 x_value = row_index
-                y_value = index
+                y_value = column_index
                 current_max = candidate
             else:
                 pass
@@ -45,39 +45,37 @@ def rows_find_max(arr):
     return (current_max, x_value, y_value)
 
 def columns_find_max(arr):
+    """ A lil' bit of linear algebra. """
+    result = rows_find_max(list(zip(*arr)))
+    return (result[0], result[2], result[1])
+
+def diagonals_find_max(arr):
     current_max = 0
     x_value = 0
     y_value = 0
-    for column_index in range(min(len(x) for x in arr)):
-        for row_index in range(len(arr) - 3):
-            candidate = reduce(mul, (arr[row_index+n][column_index] for n in range(4)))
+    
+    for row_index in range(17):
+        for column_index in range(17):
+            candidate = reduce(mul, (arr[row_index+n][column_index+n] for n in range(4)))
             if candidate > current_max:
-                y_value = column_index
                 x_value = row_index
+                y_value = column_index
                 current_max = candidate
             else:
                 pass
-    assert(current_max == reduce(mul, (arr[x_value + n][y_value] for n in range(4))))
+    assert(current_max == reduce(mul, (arr[x_value+n][y_value+n] for n in range(4))))
     return (current_max, x_value, y_value)
 
-def diagonals_find_max(arr, direction = 1):
-    current_max = 0
-    x_value = 0
-    y_value = 0
-
-    
-    for row_index, row in enumerate(arr[:-3])
-    if direction == 1:
-        assert(current_max = reduce(mul, (arr[x_value+n][y_value+n] for n in range(4))))
-    else:
-        assert(current_max = reduce(mul, (arr[x_value+n][y_value-n] for n in range(4))))
+def rev_diagonals_find_max(arr):
+    result = diagonals_find_max(list(row[::-1] for row in arr))
+    return (result[0], result[2], result[1])
 
 def main(arr):
     results = [rows_find_max(arr), columns_find_max(arr),
                diagonals_find_max(arr),
-               diagonals_find_max(arr, -1)]
+               rev_diagonals_find_max(arr)]
     return results
-    #return max(results, key=lambda x: x[0])
+    # return max(results, key=lambda x: x[0])
 
 if __name__ == "__main__":
     print(main(my_arr))
