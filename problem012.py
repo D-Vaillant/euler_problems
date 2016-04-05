@@ -30,6 +30,8 @@ def triangle_number_generator(num):
     """lol, Python."""
     return sum(range(1, num+1))
 
+# Borrowed from a StackOverflow response. The idea at least.
+#     Made some changes to suit my uses.
 def factorize(n):
     out_list = []
     for i in range(1, int(sqrt(n) + 1)):
