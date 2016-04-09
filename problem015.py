@@ -30,10 +30,10 @@ class GridManager():
     """ Because before I was getting recursion errors. """
     def __init__(self):
         self.grid_dict = {}
-        self.grid_dict[(2, 2)] = SquareShape()
-        for _ in range(1, 23):
-            self.grid_dict[(_, 1)] = SinglePath()
-            self.grid_dict[(1, _)] = SinglePath()
+        self.grid_dict[(1, 1)] = SquareShape()
+        for _ in range(0, 22):
+            self.grid_dict[(_, 0)] = SinglePath()
+            self.grid_dict[(0, _)] = SinglePath()
 
     def run(self, n, m):
         try: return self.grid_dict[(n,m)]
@@ -52,4 +52,4 @@ class GridManager():
 
 if __name__ == "__main__":
     G = GridManager()
-    print(G.run(21, 21).paths)
+    print(G.run(20, 20).paths)
