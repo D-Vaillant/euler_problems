@@ -27,16 +27,9 @@ def factor(n):
 
 abundances = [x for x in range(12, 28123) if sum(factor(x)) > x]
 
-
-def is_not_sum_of_abundant_nums(num):
-    print("Doing num {}".format(num))
-    for i in filter(lambda x: x < num, abundances):
-        if num-i in abundances:
-            return False
-        if num-i < i:
-            return True
+abun_sums = set(x + y for x in abundances for y in abundances)
 
 
 if __name__ == "__main__":
-    counterbunds = (filter(is_not_sum_of_abundant_nums, range(12, 28123)))
+    counterbunds = (x for x in range(0, 28123) if x not in abun_sums)
     print(sum(counterbunds))
