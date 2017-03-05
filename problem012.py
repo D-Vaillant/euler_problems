@@ -26,9 +26,11 @@
 
 from math import sqrt
 
-def triangle_number_generator(num):
-    """lol, Python."""
-    return sum(range(1, num+1))
+def triangle_numbers():
+    num = 1
+    while True:
+        yield sum(range(1, num+1))
+        num += 1
 
 # Borrowed from a StackOverflow response. The idea at least.
 #     Made some changes to suit my uses.
@@ -39,16 +41,11 @@ def factorize(n):
             out_list.extend([i, n//i])
     return set(out_list)
 
-def main(divisors = 500, init_num = 1):
-    divies = 0
-    out = None
-    i = init_num - 1
-    while divies < 500:
-        i += 1
-        out = triangle_number_generator(i)
-        cand = len(factorize(out))
-        if cand > divies: divies = cand
-    return out
+def main(divisors = 500):
+    for candidate in triangle_numbers():
+        cand_divs = len(factorize(candidate))
+        if cand_divs > divisors:
+            return candidate
 
 if __name__ == "__main__":
     print(main())
