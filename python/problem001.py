@@ -36,4 +36,5 @@ def main(max_):
 if __name__ == "__main__":
     print(main(1000))
     print(naive(1000, 3, 5))
-    print(more_naive(1000, 3) + more_naive(1000, 5) - more_naive(1000, 15))
+    # This last one just plain does not work.
+    # print(more_naive(1000, 3) + more_naive(1000, 5) - more_naive(1000, 15))
